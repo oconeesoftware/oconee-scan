@@ -1,0 +1,8 @@
+# Normalise line endings to LF in the working tree on every platform. Windows
+# runners check out with core.autocrlf=true by default, which rewrites LF to
+# CRLF and makes Prettier's endOfLine: "lf" check fail on files that are
+# actually unchanged.
+* text=auto eol=lf
+
+# Keep the scanner's fixtures byte-exact; several rules match on file content.
+test/fixtures/** -text
