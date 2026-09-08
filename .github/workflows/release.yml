@@ -1,0 +1,70 @@
+name: Release
+
+# Publishing is driven only by a published GitHub Release. Creating a tag alone
+# does not publish, so a tag can be pushed and reviewed before anything ships.
+on:
+  release:
+    types: [published]
+
+# No token is granted to the workflow by default; the publish job opts in below.
+permissions: {}
+
+concurrency:
+  group: release-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: read # checkout
+      id-token: write # mint the OIDC token npm provenance is signed with
+    steps:
+      - name: Checkout the released tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify the release tag matches package.json
+        run: |
+          tag="${TAG_NAME#v}"
+          pkg="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$pkg" ]; then
+            echo "Release tag $TAG_NAME does not match package.json version $pkg" >&2
+            exit 1
+          fi
+          echo "Publishing version $pkg"
+        env:
+          TAG_NAME: ${{ github.event.release.tag_name }}
+
+      - name: Refuse to republish an existing version
+        run: |
+          pkg="$(node -p "require('./package.json').version")"
+          if npm view "oconee-scan@$pkg" version >/dev/null 2>&1; then
+            echo "oconee-scan@$pkg is already on the registry; bump the version" >&2
+            exit 1
+          fi
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm test
+
+      - run: npm run build
+
+      # prepublishOnly re-runs lint/test/build, so the tarball is verified once
+      # more against the exact tree being published.
+      - name: Publish
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
