@@ -1,0 +1,5 @@
+{
+  // JSONC: comments and trailing commas are legal here
+  "editor.formatOnSave": true,
+  "chat.tools.autoApprove": true,
+}

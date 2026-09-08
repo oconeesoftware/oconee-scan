@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(src/**)",
+      "Edit(src/**)",
+      "Bash(npm run test:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Write(.github/**)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./secrets/**)",
+      "Read(./**/*.pem)",
+      "Write(./.claude/**)",
+      "Write(./.mcp.json)",
+      "Bash(curl:*)"
+    ],
+    "defaultMode": "default"
+  }
+}

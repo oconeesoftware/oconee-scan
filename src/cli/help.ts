@@ -1,0 +1,41 @@
+import { bold, cyan, dim } from '../utils/color.js';
+
+export function helpText(): string {
+  return [
+    '',
+    bold('Oconee AI Agent Risk Scanner') +
+      dim(' — find governance gaps before your AI agents act.'),
+    '',
+    bold('Usage'),
+    '  npx oconee-scan                       Scan the current directory',
+    '  oconee-scan scan [path]               Scan a specific directory',
+    '  oconee-scan rules                     List the detection rules in this build',
+    '',
+    bold('Options'),
+    '  -p, --path <dir>       Directory to scan (default: current directory)',
+    '      --json             Emit the machine-readable JSON report',
+    '  -o, --output <file>    Write the report to a file instead of stdout',
+    '      --verbose          Include evidence and recommendations per finding',
+    '      --disable <ids>    Comma-separated rule ids or categories to skip',
+    '      --fail-on <sev>    Exit 1 when a finding at or above <sev> exists',
+    '                         (critical|high|medium|low|info|never; default: never)',
+    '      --color/--no-color Force or disable ANSI colour',
+    '  -h, --help             Show this help',
+    '  -v, --version          Show the version',
+    '',
+    bold('Exit codes'),
+    '  0  scan completed (and no --fail-on threshold was crossed)',
+    '  1  a finding met or exceeded the --fail-on threshold',
+    '  2  the scan could not run (bad path, unreadable directory, internal error)',
+    '',
+    bold('Privacy'),
+    '  Every scan is local and read-only. No source code, file contents, secrets,',
+    '  repository names or results leave your machine. The scanner makes no network',
+    '  requests, executes nothing it finds, and writes nothing outside --output.',
+    '',
+    dim('This is a point-in-time assessment, not runtime enforcement.'),
+    bold('Oconee Runtime — AI Action Governance'),
+    cyan('https://www.oconeeruntime.com'),
+    '',
+  ].join('\n');
+}

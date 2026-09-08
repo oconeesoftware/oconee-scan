@@ -1,0 +1,65 @@
+{
+  "name": "oconee-scan",
+  "version": "0.1.0",
+  "description": "Oconee AI Agent Risk Scanner — find governance gaps before your AI agents act.",
+  "keywords": [
+    "ai",
+    "security",
+    "governance",
+    "mcp",
+    "claude-code",
+    "coding-agents",
+    "static-analysis",
+    "cli"
+  ],
+  "homepage": "https://www.oconeeruntime.com/tools/agent-risk-scanner",
+  "bugs": "https://github.com/oconeesoftware/oconee-scan/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oconeesoftware/oconee-scan.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Oconee Software Group",
+  "type": "module",
+  "bin": {
+    "oconee-scan": "dist/cli/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node scripts/add-shebang.mjs",
+    "dev": "tsx src/cli/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/node": "^22.9.0",
+    "eslint": "^9.15.0",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.15.0",
+    "vitest": "^2.1.5"
+  }
+}
