@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "allow": ["mcp__github", "mcp__filesystem", "Read(src/**)"],
+    "deny": []
+  }
+}

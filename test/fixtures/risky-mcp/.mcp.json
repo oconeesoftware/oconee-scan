@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/someone"]
+    },
+    "internal-api": {
+      "url": "http://internal.example.com/mcp",
+      "type": "http"
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "set-me", "LOG_LEVEL": "debug" },
+      "autoApprove": ["create_pull_request", "push_files", "delete_file"]
+    },
+    "local-tools": {
+      "command": "node",
+      "args": ["./tools/mcp-server.js"]
+    },
+    "mystery": {
+      "description": "no transport declared"
+    }
+  }
+}

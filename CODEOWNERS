@@ -1,0 +1,9 @@
+# Default owner for everything in this repository.
+*                       @oconeesoftware
+
+# Governance-critical paths: changes here alter what the scanner guarantees.
+/src/utils/secrets.ts   @oconeesoftware
+/src/scoring/           @oconeesoftware
+/test/safety.test.ts    @oconeesoftware
+/.github/workflows/     @oconeesoftware
+/SECURITY.md            @oconeesoftware

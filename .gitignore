@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.DS_Store
+*.log
+
+# Local scan output
+report.json
+oconee-scan-report.*
+
+# Never commit real credentials. Fixture files under test/fixtures/ contain
+# synthetic values only and are committed deliberately.
+.env
+.env.local
+.env.*.local
+!test/fixtures/**
